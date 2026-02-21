@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
       - name: Create deployment
-        uses: sws2apps/render-deployment@77926e84d16d004655c65a463278f24419920d36
+        uses: sws2apps/render-deployment@v2
         with:
           serviceId: ${{ secrets.RENDER_SERVICE_ID }}
           apiKey: ${{ secrets.RENDER_API_KEY }}
