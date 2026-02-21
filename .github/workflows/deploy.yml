@@ -1,0 +1,19 @@
+name: Trigger Render Deployment
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  main:
+    name: Deploy to Render
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Create deployment
+        uses: sws2apps/render-deployment@77926e84d16d004655c65a463278f24419920d36
+        with:
+          serviceId: ${{ secrets.RENDER_SERVICE_ID }}
+          apiKey: ${{ secrets.RENDER_API_KEY }}
