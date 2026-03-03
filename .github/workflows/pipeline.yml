@@ -29,7 +29,7 @@ jobs:
       - name: Test
         run: npm run test
 
-    deploy_to_render:
+  deploy_to_render:
       needs: simple_deployment_pipeline
       if: ${{ github.event_name == 'push' }}
       runs-on: ubuntu-latest
