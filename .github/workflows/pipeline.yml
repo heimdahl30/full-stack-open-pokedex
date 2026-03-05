@@ -43,6 +43,28 @@ jobs:
             serviceId: ${{ secrets.RENDER_SERVICE_ID }}
             apiKey: ${{ secrets.RENDER_API_KEY }}
 
+        - name: Notify Discord Success
+          uses: rjstone/discord-webhook-notify@v1
+          if: success()
+          with:
+            severity: info
+            details: |
+              A new version has been successfully deployed!
+              Link: https://full-stack-open-pokedex-24hv.onrender.com
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+        - name: Notify Discord Failure
+          uses: rjstone/discord-webhook-notify@v1
+          if: failure()
+          with:
+            severity: error
+            details: |
+              Build failed!
+              Commit: ${{ github.sha }}
+              Author: ${{ github.actor }}
+              Link: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
   tag_release:
     needs: deploy_to_render
     if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip')}}
