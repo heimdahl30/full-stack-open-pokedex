@@ -44,7 +44,6 @@ jobs:
             apiKey: ${{ secrets.RENDER_API_KEY }}
 
         - name: Notify Discord Success
-          uses: rjstone/discord-webhook-notify@v1
           if: success()
           with:
             severity: info
@@ -54,7 +53,6 @@ jobs:
             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 
         - name: Notify Discord Failure
-          uses: rjstone/discord-webhook-notify@v1
           if: failure()
           with:
             severity: error
