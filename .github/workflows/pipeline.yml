@@ -38,32 +38,39 @@ jobs:
           uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
         - name: Create deployment
-          uses: sws2apps/render-deployment@main
+          uses: JorgeLNJunior/render-deploy@v1.4.4
           with:
             serviceId: ${{ secrets.RENDER_SERVICE_ID }}
             apiKey: ${{ secrets.RENDER_API_KEY }}
+            wait_deploy: true
+
 
         - name: Notify Discord Success
-          uses: rjstone/discord-webhook-notify@v2
           if: success()
-          with:
-            severity: info
-            details: |
-              A new version has been successfully deployed!
-              Link: https://full-stack-open-pokedex-24hv.onrender.com
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          run: |
+            curl -H "Content-Type: application/json" \
+            -d '{
+              "embeds": [{
+              "title": "Deployment Success",
+              "description": "New version is LIVE!",
+              "url": "https://full-stack-open-pokedex-24hv.onrender.com",
+              "color": 65280
+            }]
+            }' \
+            ${{ secrets.DISCORD_WEBHOOK }}
 
         - name: Notify Discord Failure
-          uses: rjstone/discord-webhook-notify@v2
           if: failure()
-          with:
-            severity: error
-            details: |
-              Build failed!
-              Commit: ${{ github.sha }}
-              Author: ${{ github.actor }}
-              Link: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          run: |
+            curl -H "Content-Type: application/json" \
+            -d '{
+              "embeds": [{
+              "title": "Build Failed",
+              "description": "**Commit:** `${{ github.sha }}`\n**Author:** ${{ github.actor }}\n**Logs:** [View here](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+              "color": 16711680
+            }]
+            }' \
+            ${{ secrets.DISCORD_WEBHOOK }}
 
   tag_release:
     needs: deploy_to_render
