@@ -3,7 +3,7 @@ name: Periodic Health Check
 on:
   push:
     branches:
-      - main
+      - experimental-branch
   workflow_dispatch:
   schedule:
     - cron: '*/15 * * * *'
