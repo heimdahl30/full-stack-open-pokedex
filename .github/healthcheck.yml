@@ -1,11 +1,9 @@
 name: Periodic Health Check
 
-# test comment
-
 on:
   push:
     branches:
-      - experimental-branch
+      - main
   workflow_dispatch:
   schedule:
     - cron: '*/15 * * * *'
