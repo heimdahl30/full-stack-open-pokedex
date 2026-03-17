@@ -93,7 +93,7 @@ jobs:
             ${{ secrets.DISCORD_WEBHOOK }}
 
   tag_release:
-     needs: deploy_to_render
+     needs: [deploy_to_render, notify_success]
      if: |
        github.event_name == 'push' && !
        contains(join(github.event.commits.*.message, ' '), '#skip')
