@@ -75,7 +75,7 @@ jobs:
                 "name": "Author",
                 "value": "${{ github.actor }}",
                 "inline": true
-              },
+              }
             ]
             }]
             }' \
