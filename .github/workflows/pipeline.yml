@@ -60,6 +60,7 @@ jobs:
   notify_success:
       needs: deploy_to_render
       runs-on: ubuntu-latest
+      if: success()
       steps:
         - name: Notify Discord Success
           run: |
@@ -77,7 +78,7 @@ jobs:
   notify_failure:
       needs: deploy_to_render
       runs-on: ubuntu-latest
-      if: always() && needs.deploy_to_render.result == 'failure'
+      if: failure()
       steps:
         - name: Notify Discord Failure
           run: |
@@ -93,7 +94,7 @@ jobs:
 
   tag_release:
      needs: deploy_to_render
-     if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip')}}
+     if: success() && github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip')
      runs-on: ubuntu-latest
      steps:
        - uses: actions/checkout@v4
