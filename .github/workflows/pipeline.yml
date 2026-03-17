@@ -78,10 +78,9 @@ jobs:
   notify_failure:
       needs: deploy_to_render
       runs-on: ubuntu-latest
-      if: always() && (needs.deploy_to_render.result == 'failure')
+      if: failure()
       steps:
         - name: Notify Discord Failure
-          if: needs.deploy_to_render.result == 'failure'
           run: |
             curl -H "Content-Type: application/json" \
             -d '{
