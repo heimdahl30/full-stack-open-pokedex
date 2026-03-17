@@ -76,11 +76,6 @@ jobs:
                 "value": "${{ github.actor }}",
                 "inline": true
               },
-              {
-                "name": "Repository",
-                "value": "[${{ github.repository }}](https://github.com{{ github.repository }})",
-                "inline": true
-              }
             ]
             }]
             }' \
