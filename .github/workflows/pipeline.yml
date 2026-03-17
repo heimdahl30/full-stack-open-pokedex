@@ -95,7 +95,6 @@ jobs:
   tag_release:
      needs: deploy_to_render
      if: |
-       success() &&
        github.event_name == 'push' && !
        contains(join(github.event.commits.*.message, ' '), '#skip')
      runs-on: ubuntu-latest
