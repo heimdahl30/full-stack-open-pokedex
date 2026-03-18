@@ -1,4 +1,6 @@
-Render link for the deployed app: https://full-stack-open-pokedex-24hv.onrender.com
+Pokedex Render Link: https://full-stack-open-pokedex-24hv.onrender.com
+
+CI-CD_PROJECT Link: https://ci-cd-project-jcv7.onrender.com
 
 # Full Stack open CI/CD
 
