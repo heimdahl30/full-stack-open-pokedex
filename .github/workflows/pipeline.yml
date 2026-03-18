@@ -66,17 +66,10 @@ jobs:
             curl -H "Content-Type: application/json" \
             -d '{
               "embeds": [{
-              "title": "Deployment Success",
-              "description": "New version is LIVE!",
+              "title": "Deployment Success Pokedex",
+              "description": "**New version is LIVE!**\n**Commit:** `${{ github.sha }}`\n**Author:** ${{ github.actor }}",
               "url": "https://full-stack-open-pokedex-24hv.onrender.com",
-              "color": 65280,
-              "fields": [
-              {
-                "name": "Author",
-                "value": "${{ github.actor }}",
-                "inline": true
-              }
-            ]
+              "color": 65280
             }]
             }' \
             ${{ secrets.DISCORD_WEBHOOK }}
